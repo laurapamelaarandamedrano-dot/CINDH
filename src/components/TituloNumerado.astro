@@ -1,0 +1,14 @@
+---
+import type { Tono } from '../data/sitio';
+interface Props {
+  numero: string;
+  id: string;
+  tono?: Tono;
+}
+const { numero, id, tono = 'vino' } = Astro.props;
+---
+
+<div class="num-title reveal">
+  <span class:list={['num', `tono-${tono}`]} aria-hidden="true">{numero}</span>
+  <h2 id={id}><slot /></h2>
+</div>

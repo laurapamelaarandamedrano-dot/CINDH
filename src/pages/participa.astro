@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import TituloNumerado from '../components/TituloNumerado.astro';
+import Icono from '../components/Icono.astro';
+import { MEMBRESIA } from '../data/sitio';
+
+const tonos = ['vino', 'turquesa', 'oro', 'lavanda'] as const;
+const vinculos = [
+  'Universidades',
+  'Centros de investigación',
+  'Organismos públicos de derechos humanos',
+  'Instituciones gubernamentales',
+  'Organizaciones civiles',
+  'Colectivos',
+  'Fundaciones',
+  'Organismos internacionales',
+];
+---
+
+<BaseLayout titulo="Participa">
+  <PageHero
+    eyebrow="Participa"
+    titulo="Súmate a la agenda de CINDH"
+    lede="Investigando, formando, difundiendo o acompañando: hay muchas formas de contribuir."
+  />
+
+  <section class="section" aria-labelledby="t-membresia">
+    <div class="container">
+      <TituloNumerado numero="10" id="t-membresia">Membresía</TituloNumerado>
+      <div class="grid grid--2 reveal-stagger">
+        {
+          MEMBRESIA.map((m, i) => (
+            <article class:list={['card', 'reveal', `tono-${tonos[i] ?? 'vino'}`]}>
+              <h3>{m.nombre}</h3>
+              <p>{m.texto}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--papel" aria-labelledby="t-relaciones">
+    <div class="container">
+      <TituloNumerado numero="12" id="t-relaciones" tono="oro">Relaciones institucionales</TituloNumerado>
+      <p class="lede reveal">
+        CINDH se vincula con una amplia red de actores. Toda relación se formaliza mediante instrumentos que preservan
+        su independencia.
+      </p>
+      <ul class="vinculos reveal-stagger">
+        {
+          vinculos.map((v, i) => (
+            <li class:list={['reveal', `tono-${tonos[i % 4]}`]}>
+              <Icono nombre="red" />
+              {v}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight text-center" aria-labelledby="t-contacto">
+    <div class="container">
+      <h2 id="t-contacto" class="reveal">¿Quieres colaborar?</h2>
+      <p class="lede reveal">
+        Muy pronto habilitaremos un canal de contacto. Mientras tanto, conoce cómo trabajamos y nuestros compromisos de
+        integridad.
+      </p>
+      <div class="cluster cluster--center">
+        <a class="button button--primary" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}gobierno-y-transparencia/`}>
+          Gobierno y transparencia
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .vinculos {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 12px;
+  }
+  .vinculos li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: var(--tono-tinte);
+    color: var(--tono-texto);
+    font-weight: 500;
+  }
+  .vinculos :global(.icon) {
+    flex: none;
+    width: 22px;
+    height: 22px;
+  }
+</style>

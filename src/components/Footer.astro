@@ -1,0 +1,111 @@
+---
+import { NAVEGACION, SITIO } from '../data/sitio';
+import Mariposa from './Mariposa.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const anio = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__franja" aria-hidden="true">
+    <span class="tono-vino"></span><span class="tono-turquesa"></span><span class="tono-oro"></span><span
+      class="tono-lavanda"></span>
+  </div>
+  <div class="container site-footer__grid">
+    <div>
+      <p class="site-footer__name">
+        <Mariposa paleta="oro-turquesa" vuelo={false} class="site-footer__mark" />
+        {SITIO.nombre}
+      </p>
+      <p class="site-footer__full">{SITIO.nombreCompleto}</p>
+      <p class="site-footer__tag">{SITIO.lema}</p>
+    </div>
+    <nav aria-label="Enlaces del sitio">
+      <ul class="site-footer__nav">
+        {
+          NAVEGACION.slice(1).map((item) => (
+            <li>
+              <a href={base + item.ruta}>{item.texto}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>Asociación civil en proceso de constitución.</p>
+    <p>© {anio} {SITIO.nombre}. Sin fines de lucro, partidistas ni religiosos.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--marino);
+    color: #c9cbe0;
+    font-size: 0.95rem;
+  }
+  .site-footer__franja {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 6px;
+  }
+  .site-footer__franja span {
+    background: var(--tono);
+  }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 32px 64px;
+    padding-block: 56px 32px;
+  }
+  .site-footer__name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--fuente-titulo);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.4rem;
+  }
+  :global(.site-footer__mark) {
+    width: 42px;
+  }
+  .site-footer__full {
+    color: #e3e3f0;
+  }
+  .site-footer__tag {
+    font-family: var(--fuente-titulo);
+    font-style: italic;
+    color: #d9b86a;
+  }
+  .site-footer__nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 8px 24px;
+  }
+  .site-footer__nav a {
+    color: #e3e3f0;
+    text-decoration: none;
+  }
+  .site-footer__nav a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding-block: 20px 28px;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+    font-size: 0.85rem;
+    color: #a9acc8;
+  }
+  .site-footer__bottom p {
+    margin: 0;
+  }
+</style>

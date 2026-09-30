@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Mariposa from '../components/Mariposa.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<BaseLayout titulo="Página no encontrada">
+  <section class="section text-center no-encontrada" aria-labelledby="t-404">
+    <div class="container">
+      <Mariposa paleta="lavanda-vino" class="no-encontrada__mariposa" />
+      <p class="eyebrow">Error 404</p>
+      <h1 id="t-404">Esta página voló lejos</h1>
+      <p class="lede">La dirección no existe o cambió de lugar.</p>
+      <div class="cluster cluster--center">
+        <a class="button button--primary" href={base}>Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .no-encontrada {
+    min-height: 60vh;
+    display: grid;
+    align-items: center;
+  }
+  :global(.no-encontrada__mariposa) {
+    width: 120px;
+    margin: 0 auto 24px;
+  }
+</style>

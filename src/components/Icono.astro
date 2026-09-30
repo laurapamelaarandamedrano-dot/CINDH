@@ -1,0 +1,31 @@
+---
+// Iconos de trazo simple, sin librerías externas.
+interface Props {
+  nombre: 'lupa' | 'megafono' | 'birrete' | 'manos' | 'balanza' | 'escudo' | 'red' | 'libro' | 'ojo' | 'flecha';
+  class?: string;
+}
+const { nombre, class: clase = 'icon' } = Astro.props;
+---
+
+<svg
+  class={clase}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {nombre === 'lupa' && (<><circle cx="10.5" cy="10.5" r="6.5" /><path d="m20 20-4.7-4.7" /><path d="M8 10.5h5M10.5 8v5" /></>)}
+  {nombre === 'megafono' && (<><path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1Z" /><path d="M16.5 8.5a5 5 0 0 1 0 7" /><path d="M19 6a8.5 8.5 0 0 1 0 12" /></>)}
+  {nombre === 'birrete' && (<><path d="M12 4 22 9l-10 5L2 9l10-5Z" /><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" /><path d="M22 9v6" /></>)}
+  {nombre === 'manos' && (<><path d="M11 14h2a2 2 0 0 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16" /><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.8-2.8l-4.2 3.9" /><path d="m2 15 6 6" /></>)}
+  {nombre === 'balanza' && (<><path d="M12 3v18M7 21h10M5 7h14" /><path d="m5 7-3 6a3 3 0 0 0 6 0L5 7ZM19 7l-3 6a3 3 0 0 0 6 0l-3-6Z" /></>)}
+  {nombre === 'escudo' && (<><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z" /><path d="m9 12 2 2 4-4" /></>)}
+  {nombre === 'red' && (<><circle cx="12" cy="5" r="2" /><circle cx="5" cy="18" r="2" /><circle cx="19" cy="18" r="2" /><path d="M11 7 6 16M13 7l5 9M7 18h10" /></>)}
+  {nombre === 'libro' && (<><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z" /><path d="M4 19.5A2 2 0 0 0 6 21h13" /><path d="M9 7h6" /></>)}
+  {nombre === 'ojo' && (<><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" /></>)}
+  {nombre === 'flecha' && (<><path d="M5 12h14M13 6l6 6-6 6" /></>)}
+</svg>

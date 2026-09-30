@@ -1,0 +1,28 @@
+# Dependencias y compilación
+node_modules/
+dist/
+.astro/
+
+# Secretos: NUNCA se suben
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials*.json
+service-account*.json
+
+# Documentos internos (la carpeta ejecutiva no se publica)
+*.pdf
+*.docx
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+npm-debug.log*
