@@ -1,0 +1,14 @@
+/* Sin JavaScript nadie añade "is-visible" a los elementos .reveal:
+   se muestran de inmediato y el menú queda siempre visible. */
+.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.nav__toggle {
+  display: none !important;
+}
+.nav {
+  display: block !important;
+  position: static !important;
+  box-shadow: none !important;
+}

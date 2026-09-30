@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import TituloNumerado from '../components/TituloNumerado.astro';
+import { POLITICAS, ARQUITECTURA, ORGANOS, INDEPENDENCIA, INTEGRIDAD } from '../data/sitio';
+---
+
+<BaseLayout titulo="Gobierno y transparencia">
+  <PageHero
+    eyebrow="Gobierno y transparencia"
+    titulo="Independencia, integridad y rendición de cuentas"
+    lede="Cómo nos organizamos y cómo cuidamos que nadie modifique lo que la evidencia muestra."
+  />
+
+  <section class="section" aria-labelledby="t-politicas">
+    <div class="container prosa">
+      <TituloNumerado numero="11" id="t-politicas" tono="turquesa">Políticas generales</TituloNumerado>
+      <ul class="def-list">
+        {
+          POLITICAS.map((p) => (
+            <li class="reveal">
+              <strong>{p.nombre}.</strong> {p.texto}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--papel" aria-labelledby="t-arquitectura">
+    <div class="container prosa">
+      <TituloNumerado numero="16" id="t-arquitectura">Arquitectura institucional y jurídica</TituloNumerado>
+      <p class="aviso reveal">
+        Propuesta preliminar, redactada para que CINDH pueda constituirse como entidad jurídica independiente sin
+        modificar su identidad. Se validará con asesoría notarial, fiscal y legal.
+      </p>
+      <ul class="def-list">
+        {
+          ARQUITECTURA.map((a) => (
+            <li class="reveal">
+              <strong>{a.nombre}.</strong> {a.texto}
+            </li>
+          ))
+        }
+      </ul>
+
+      <figure class="organigrama reveal" aria-labelledby="org-titulo">
+        <figcaption id="org-titulo" class="visually-hidden">Órganos de gobierno de CINDH</figcaption>
+        <div class="organigrama__raiz">Asamblea General de Asociados</div>
+        <div class="organigrama__conector" aria-hidden="true"></div>
+        <ul class="organigrama__hijos">
+          {ORGANOS.map((o) => <li>{o}</li>)}
+        </ul>
+      </figure>
+
+      <ul class="def-list">
+        {
+          INDEPENDENCIA.map((a) => (
+            <li class="reveal">
+              <strong>{a.nombre}.</strong> {a.texto}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="t-integridad">
+    <div class="container">
+      <TituloNumerado numero="17" id="t-integridad">Integridad, financiamiento y rendición de cuentas</TituloNumerado>
+      <div class="grid grid--2 reveal-stagger">
+        {
+          INTEGRIDAD.map((x) => (
+            <div class:list={['side-card', 'reveal', `tono-${x.tono}`]}>
+              <p>
+                <strong>{x.nombre}.</strong> {x.texto}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prosa {
+    max-width: 900px;
+  }
+  .aviso {
+    font-style: italic;
+    color: var(--tinta-suave);
+    background: var(--blanco);
+    border-left: 5px solid var(--oro);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin-bottom: 1.6rem;
+  }
+  .organigrama {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+  .organigrama__raiz {
+    display: inline-block;
+    background: var(--vino);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 500;
+    box-shadow: 0 8px 20px rgb(123 30 62 / 0.3);
+  }
+  .organigrama__conector {
+    width: 2px;
+    height: 24px;
+    margin: 0 auto;
+    background: var(--vino);
+  }
+  .organigrama__hijos {
+    list-style: none;
+    padding: 16px 0 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+    gap: 10px;
+    border-top: 2px solid var(--vino);
+  }
+  .organigrama__hijos li {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 14px 10px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--marino);
+    box-shadow: var(--sombra);
+  }
+</style>

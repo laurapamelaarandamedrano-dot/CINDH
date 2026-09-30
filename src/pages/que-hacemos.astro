@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import TituloNumerado from '../components/TituloNumerado.astro';
+import Icono from '../components/Icono.astro';
+import { QUE_HACEMOS, LINEAS, COMO_ACTUAMOS, SERIES } from '../data/sitio';
+---
+
+<BaseLayout titulo="Qué hacemos">
+  <PageHero
+    eyebrow="Qué hacemos"
+    titulo="Investigar, difundir, formar y actuar"
+    lede="Cuatro verbos que forman un mismo compromiso con la dignidad de las personas."
+  />
+
+  <section class="section" aria-labelledby="t-hacemos">
+    <div class="container">
+      <TituloNumerado numero="02" id="t-hacemos" tono="turquesa">Qué hacemos</TituloNumerado>
+      <div class="grid grid--4 reveal-stagger">
+        {
+          QUE_HACEMOS.map((item, i) => (
+            <article class:list={['card', 'reveal', `tono-${item.tono}`]}>
+              <div class="card__top">
+                <span class="card__badge">
+                  <Icono nombre={item.icono} />
+                </span>
+                <p class="card__index" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </p>
+              </div>
+              <h3>{item.titulo}</h3>
+              <p>{item.texto}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--papel" aria-labelledby="t-lineas">
+    <div class="container">
+      <TituloNumerado numero="09" id="t-lineas" tono="turquesa">Líneas de trabajo</TituloNumerado>
+      <div class="tabla reveal" role="table" aria-labelledby="t-lineas">
+        <div class="tabla__fila tabla__fila--cabecera" role="row">
+          <span role="columnheader">Línea</span>
+          <span role="columnheader">Qué abarca</span>
+        </div>
+        {
+          LINEAS.map((l) => (
+            <div class:list={['tabla__fila', `tono-${l.tono}`]} role="row">
+              <strong role="cell">{l.nombre}</strong>
+              <span role="cell">{l.abarca}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="t-actuamos">
+    <div class="container">
+      <TituloNumerado numero="14" id="t-actuamos" tono="turquesa">Cómo actuamos</TituloNumerado>
+      <div class="grid grid--2 reveal-stagger">
+        {
+          COMO_ACTUAMOS.map((c) => (
+            <article class:list={['card', 'reveal', `tono-${c.tono}`]}>
+              <h3>{c.titulo}</h3>
+              <p>{c.texto}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--marino" aria-labelledby="t-publicaciones">
+    <div class="container">
+      <p class="eyebrow">Propuesta</p>
+      <h2 id="t-publicaciones" class="reveal">Publicaciones, difusión y presencia digital</h2>
+      <p class="lede reveal lede--claro">Tres series propias para que la evidencia llegue a quien la necesita.</p>
+      <div class="grid grid--3 reveal-stagger series">
+        {
+          SERIES.map((s) => (
+            <article class:list={['serie', 'reveal', `tono-${s.tono}`]}>
+              <Icono nombre="libro" class="serie__icono" />
+              <h3>{s.titulo}</h3>
+              <p>{s.texto}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="reveal lede--claro nota">
+        Además: campañas de sensibilización, materiales de divulgación y foros abiertos para llevar los derechos humanos
+        a la vida cotidiana, y este sitio web con publicaciones, proyectos e informes de transparencia.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tabla {
+    display: grid;
+    gap: 8px;
+  }
+  .tabla__fila {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 2fr;
+    gap: 8px 32px;
+    padding: 18px 22px;
+    border-radius: 12px;
+    background: var(--blanco);
+    box-shadow: var(--sombra);
+  }
+  .tabla__fila strong {
+    color: var(--tono-texto);
+  }
+  .tabla__fila--cabecera {
+    background: var(--marino);
+    color: #fff;
+    font-weight: 500;
+    box-shadow: none;
+  }
+  @media (max-width: 640px) {
+    .tabla__fila {
+      grid-template-columns: 1fr;
+    }
+    .tabla__fila--cabecera span:last-child {
+      display: none;
+    }
+  }
+  .lede--claro {
+    color: #d5d3e6;
+  }
+  .series {
+    margin-block: 2rem;
+  }
+  .serie {
+    background: rgb(255 255 255 / 0.07);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-top: 4px solid var(--tono);
+    border-radius: var(--radio);
+    padding: 24px;
+  }
+  .serie h3 {
+    color: #fff;
+  }
+  .serie p {
+    margin: 0;
+    color: #d5d3e6;
+  }
+  :global(.serie__icono) {
+    width: 30px;
+    height: 30px;
+    color: var(--tono);
+    margin-bottom: 14px;
+  }
+  .nota {
+    max-width: 70ch;
+    margin: 0;
+  }
+</style>

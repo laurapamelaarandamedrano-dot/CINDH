@@ -1,0 +1,94 @@
+---
+import Mariposa from './Mariposa.astro';
+interface Props {
+  eyebrow: string;
+  titulo: string;
+  lede?: string;
+}
+const { eyebrow, titulo, lede } = Astro.props;
+---
+
+<section class="page-hero" aria-labelledby="page-hero-titulo">
+  <div class="page-hero__circulo page-hero__circulo--a" aria-hidden="true"></div>
+  <div class="page-hero__circulo page-hero__circulo--b" aria-hidden="true"></div>
+  <div class="page-hero__puntos" aria-hidden="true"></div>
+  <Mariposa paleta="oro-turquesa" class="page-hero__mariposa" />
+  <div class="container page-hero__contenido">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 id="page-hero-titulo">{titulo}</h1>
+    {lede && <p class="page-hero__lede">{lede}</p>}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(72px, 11vw, 132px) clamp(56px, 8vw, 96px);
+    background: linear-gradient(155deg, var(--marino) 0%, #1f2552 55%, #4a1c3f 100%);
+    color: #e9e7f3;
+    isolation: isolate;
+  }
+  .page-hero__contenido {
+    position: relative;
+    z-index: 2;
+  }
+  .page-hero h1 {
+    color: #fff;
+    font-size: clamp(2.2rem, 5.4vw, 3.8rem);
+    max-width: 18ch;
+  }
+  .page-hero .eyebrow {
+    color: #d9b86a;
+  }
+  .page-hero__lede {
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    max-width: 60ch;
+    color: #d5d3e6;
+    margin: 0;
+  }
+  .page-hero__circulo {
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+  }
+  .page-hero__circulo--a {
+    width: 520px;
+    height: 520px;
+    right: -140px;
+    top: -180px;
+    background: rgb(124 108 192 / 0.22);
+  }
+  .page-hero__circulo--b {
+    width: 380px;
+    height: 380px;
+    right: 180px;
+    bottom: -260px;
+    background: rgb(123 30 62 / 0.45);
+  }
+  .page-hero__puntos {
+    position: absolute;
+    left: var(--gutter);
+    top: 28px;
+    width: 220px;
+    height: 120px;
+    background-image: radial-gradient(rgb(255 255 255 / 0.22) 1.5px, transparent 1.6px);
+    background-size: 20px 20px;
+    z-index: -1;
+  }
+  :global(.page-hero__mariposa) {
+    position: absolute;
+    right: clamp(16px, 9vw, 140px);
+    top: clamp(40px, 8vw, 90px);
+    width: clamp(70px, 10vw, 130px);
+    z-index: 1;
+    opacity: 0.95;
+  }
+  @media (max-width: 640px) {
+    :global(.page-hero__mariposa) {
+      top: 18px;
+      right: 12px;
+      width: 58px;
+    }
+  }
+</style>

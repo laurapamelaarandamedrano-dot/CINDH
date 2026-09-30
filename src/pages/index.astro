@@ -1,0 +1,390 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Mariposa from '../components/Mariposa.astro';
+import Icono from '../components/Icono.astro';
+import { SITIO, QUE_HACEMOS, ETIQUETAS, LINEAS } from '../data/sitio';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<BaseLayout titulo="Inicio">
+  <section class="hero" aria-labelledby="hero-titulo">
+    <div class="hero__circulo hero__circulo--grande" aria-hidden="true"></div>
+    <div class="hero__circulo hero__circulo--vino" aria-hidden="true"></div>
+    <div class="hero__circulo hero__circulo--claro" aria-hidden="true"></div>
+    <div class="hero__puntos" aria-hidden="true"></div>
+
+    <Mariposa paleta="vino-oro" class="hero__mariposa hero__mariposa--1" />
+    <Mariposa paleta="oro-turquesa" class="hero__mariposa hero__mariposa--2" />
+    <Mariposa paleta="lavanda-vino" class="hero__mariposa hero__mariposa--3" />
+
+    <svg class="hero__molecula" viewBox="0 0 100 90" aria-hidden="true" focusable="false">
+      <g class="hero__molecula-lineas">
+        <path d="M50 18 L70 30 L70 54 L50 66 L30 54 L30 30 Z M50 18 L50 4 M70 54 L86 62 M30 54 L14 62"></path>
+      </g>
+      <g class="hero__molecula-nodos">
+        <circle cx="50" cy="4" r="4"></circle><circle cx="50" cy="18" r="6"></circle>
+        <circle cx="70" cy="30" r="6"></circle><circle cx="70" cy="54" r="6"></circle>
+        <circle cx="50" cy="66" r="6"></circle><circle cx="30" cy="54" r="6"></circle>
+        <circle cx="30" cy="30" r="6"></circle><circle cx="86" cy="62" r="4"></circle>
+        <circle cx="14" cy="62" r="4"></circle>
+      </g>
+    </svg>
+
+    <svg class="hero__adn" viewBox="0 0 40 160" aria-hidden="true" focusable="false">
+      {
+        Array.from({ length: 12 }, (_, i) => {
+          const y = 8 + i * 13;
+          const d = Math.round(Math.sin(i * 0.9) * 12);
+          return (
+            <g>
+              <line x1={20 - d} y1={y} x2={20 + d} y2={y} />
+              <circle cx={20 - d} cy={y} r="2.6" class="adn-a" />
+              <circle cx={20 + d} cy={y} r="2.6" class="adn-b" />
+            </g>
+          );
+        })
+      }
+    </svg>
+
+    <div class="container hero__contenido">
+      <p class="eyebrow">Asociación civil · Derechos humanos</p>
+      <h1 id="hero-titulo" class="hero__titulo">{SITIO.nombre}</h1>
+      <p class="hero__nombre">{SITIO.nombreCompleto}</p>
+      <p class="hero__lema">{SITIO.lema}</p>
+      <div class="cluster">
+        <a class="button button--primary" href={`${base}que-hacemos/`}>Qué hacemos</a>
+        <a class="button button--ghost" href={`${base}participa/`}>Cómo participar</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="pilares-titulo">
+    <div class="container">
+      <p class="eyebrow">Qué hacemos</p>
+      <h2 id="pilares-titulo" class="reveal">Cuatro formas de defender la dignidad</h2>
+      <div class="grid grid--4 reveal-stagger">
+        {
+          QUE_HACEMOS.map((item, i) => (
+            <article class:list={['card', 'reveal', `tono-${item.tono}`]}>
+              <div class="card__top">
+                <span class="card__badge">
+                  <Icono nombre={item.icono} />
+                </span>
+                <p class="card__index" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </p>
+              </div>
+              <h3>{item.titulo}</h3>
+              <p>{item.texto}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--papel" aria-labelledby="quienes-titulo">
+    <Mariposa paleta="rosa-crema" class="deco-mariposa" />
+    <div class="container quienes">
+      <div>
+        <p class="eyebrow">Quiénes somos</p>
+        <h2 id="quienes-titulo" class="reveal">Los derechos humanos se defienden mejor cuando se conocen, se estudian y se viven</h2>
+        <p class="lede reveal">
+          Somos una asociación civil autónoma y sin fines de lucro que investiga, difunde, forma y actúa en favor de
+          los derechos humanos, uniendo el rigor del conocimiento con el trabajo cercano a las personas.
+        </p>
+        <ul class="pills reveal" aria-label="Lo que nos mueve">
+          {ETIQUETAS.map((e) => <li class:list={['pill', `tono-${e.tono}`]}>{e.texto}</li>)}
+        </ul>
+      </div>
+      <div>
+        <blockquote class="pull-quote reveal">
+          <p>{SITIO.frase}</p>
+        </blockquote>
+        <a class="button button--outline reveal" href={`${base}quienes-somos/`}>Conoce CINDH</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="lineas-titulo">
+    <div class="container">
+      <p class="eyebrow">Líneas de trabajo</p>
+      <h2 id="lineas-titulo" class="reveal">Seis agendas, una misma mirada</h2>
+      <p class="lede reveal">
+        Reunimos al derecho con la ciencia política, la sociología, la economía, la psicología, la educación, la
+        salud pública y la ciencia de datos.
+      </p>
+      <ul class="lineas reveal-stagger">
+        {
+          LINEAS.map((l, i) => (
+            <li class:list={['linea', 'reveal', `tono-${l.tono}`]}>
+              <span class="linea__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{l.nombre}</h3>
+              <p>{l.abarca}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--marino text-center" aria-labelledby="cta-titulo">
+    <Mariposa paleta="oro-turquesa" class="cta__mariposa" />
+    <div class="container">
+      <p class="eyebrow">Súmate</p>
+      <h2 id="cta-titulo" class="reveal">Evidencia para la dignidad</h2>
+      <p class="lede reveal cta__lede">
+        Personas investigadoras, defensoras, promotoras comunitarias, comunicadoras, profesionistas y estudiantes de
+        cualquier disciplina pueden sumarse a nuestra agenda.
+      </p>
+      <div class="cluster cluster--center">
+        <a class="button button--primary" href={`${base}participa/`}>Participa</a>
+        <a class="button button--ghost" href={`${base}estrategia/`}>Nuestra estrategia</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: min(88vh, 820px);
+    display: flex;
+    align-items: flex-end;
+    padding-block: 120px clamp(72px, 10vw, 120px);
+    background: linear-gradient(160deg, #13264b 0%, #172a54 45%, #2c2350 72%, #5a1f41 100%);
+    color: #e6e6f2;
+  }
+  .hero__contenido {
+    position: relative;
+    z-index: 3;
+  }
+  .hero .eyebrow {
+    color: #b8c3e6;
+  }
+  .hero__titulo {
+    color: #fff;
+    font-size: clamp(4rem, 13vw, 8.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    margin-bottom: 0.25em;
+  }
+  .hero__nombre {
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    max-width: 32ch;
+    color: #f0f0f8;
+    margin-bottom: 0.6em;
+  }
+  .hero__lema {
+    font-family: var(--fuente-titulo);
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    color: #cdd5f3;
+    margin-bottom: 2rem;
+  }
+
+  .hero__circulo {
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+  }
+  .hero__circulo--grande {
+    width: clamp(420px, 62vw, 820px);
+    aspect-ratio: 1;
+    right: -18vw;
+    top: 4%;
+    background: rgb(61 88 150 / 0.35);
+    animation: respirar 14s ease-in-out infinite;
+  }
+  .hero__circulo--vino {
+    width: clamp(300px, 44vw, 560px);
+    aspect-ratio: 1;
+    right: 14vw;
+    top: 20%;
+    background: rgb(123 30 62 / 0.4);
+    animation: respirar 11s ease-in-out infinite reverse;
+  }
+  .hero__circulo--claro {
+    width: clamp(160px, 20vw, 260px);
+    aspect-ratio: 1;
+    right: 8vw;
+    top: 12%;
+    background: rgb(180 170 220 / 0.18);
+  }
+  .hero__puntos {
+    position: absolute;
+    left: var(--gutter);
+    top: 96px;
+    width: min(360px, 60vw);
+    height: 220px;
+    background-image: radial-gradient(rgb(170 185 230 / 0.35) 1.6px, transparent 1.7px);
+    background-size: 22px 22px;
+    z-index: -1;
+  }
+
+  :global(.hero__mariposa) {
+    position: absolute;
+    z-index: 2;
+  }
+  :global(.hero__mariposa--1) {
+    width: clamp(110px, 15vw, 190px);
+    right: 16vw;
+    top: 13%;
+  }
+  :global(.hero__mariposa--2) {
+    width: clamp(60px, 8vw, 100px);
+    right: 38vw;
+    top: 32%;
+    animation-delay: -2s;
+  }
+  :global(.hero__mariposa--3) {
+    width: clamp(46px, 5.5vw, 70px);
+    right: 5vw;
+    top: 38%;
+    animation-delay: -4s;
+  }
+
+  .hero__molecula {
+    position: absolute;
+    left: clamp(12px, 7vw, 110px);
+    bottom: 6%;
+    width: 86px;
+    opacity: 0.5;
+    z-index: 0;
+  }
+  .hero__molecula-lineas path {
+    fill: none;
+    stroke: #8e9bc6;
+    stroke-width: 2.5;
+  }
+  .hero__molecula-nodos circle {
+    fill: #8e9bc6;
+  }
+  .hero__adn {
+    position: absolute;
+    right: clamp(12px, 7vw, 110px);
+    bottom: 5%;
+    width: 38px;
+    opacity: 0.75;
+    z-index: 0;
+  }
+  .hero__adn line {
+    stroke: rgb(201 150 44 / 0.45);
+    stroke-width: 1.2;
+  }
+  .hero__adn .adn-a {
+    fill: #c9962c;
+  }
+  .hero__adn .adn-b {
+    fill: #b7a6e0;
+  }
+
+  @keyframes respirar {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05) translate(-10px, 6px);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .hero {
+      align-items: flex-end;
+      padding-top: 180px;
+    }
+    :global(.hero__mariposa--1) {
+      right: 8vw;
+      top: 7%;
+    }
+    :global(.hero__mariposa--2) {
+      right: 50vw;
+      top: 11%;
+    }
+    :global(.hero__mariposa--3) {
+      top: 24%;
+    }
+    .hero__molecula {
+      display: none;
+    }
+    .hero__adn {
+      top: 40%;
+      bottom: auto;
+    }
+  }
+
+  /* ---------- Quiénes somos ---------- */
+  .quienes {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .quienes {
+      grid-template-columns: 1fr;
+    }
+  }
+  :global(.deco-mariposa) {
+    position: absolute;
+    top: 32px;
+    right: 4vw;
+    width: 110px;
+  }
+
+  /* ---------- Líneas ---------- */
+  .lineas {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 18px;
+  }
+  .linea {
+    position: relative;
+    padding: 24px 24px 22px 24px;
+    border-radius: var(--radio);
+    background: var(--tono-tinte);
+    overflow: hidden;
+    transition: transform 0.25s ease;
+  }
+  .linea:hover {
+    transform: translateY(-4px) rotate(-0.4deg);
+  }
+  .linea h3 {
+    color: var(--tono-texto);
+    margin-bottom: 0.4em;
+    padding-right: 48px;
+  }
+  .linea p {
+    margin: 0;
+    color: var(--tinta);
+  }
+  .linea__num {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    font-family: var(--fuente-titulo);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--tono);
+    opacity: 0.35;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta__lede {
+    color: #d5d3e6;
+  }
+  :global(.cta__mariposa) {
+    position: absolute;
+    left: 6vw;
+    top: 40px;
+    width: 90px;
+  }
+</style>

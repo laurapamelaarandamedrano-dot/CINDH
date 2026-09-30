@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import TituloNumerado from '../components/TituloNumerado.astro';
+import Mariposa from '../components/Mariposa.astro';
+import { ETAPAS } from '../data/sitio';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<BaseLayout titulo="Estrategia">
+  <PageHero
+    eyebrow="Estrategia"
+    titulo="De la consolidación a la proyección internacional"
+    lede="Una ruta en tres etapas para crecer sin perder la cercanía con las personas."
+  />
+
+  <section class="section" aria-labelledby="t-etapas">
+    <div class="container">
+      <TituloNumerado numero="13" id="t-etapas">Estrategia en tres etapas (propuesta)</TituloNumerado>
+      <ol class="etapas reveal-stagger">
+        {
+          ETAPAS.map((e, i) => (
+            <li class:list={['etapa', 'reveal', `tono-${e.tono}`]}>
+              <span class="etapa__n" aria-hidden="true">
+                {i + 1}
+              </span>
+              <h3>{e.titulo}</h3>
+              <p>{e.texto}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--marino text-center" aria-labelledby="t-cta">
+    <Mariposa paleta="lavanda-vino" class="estrategia__mariposa" />
+    <div class="container">
+      <h2 id="t-cta" class="reveal">Ser un referente nacional en derechos humanos</h2>
+      <p class="lede reveal claro">
+        Reconocido por la solidez de su evidencia, su cercanía con las personas y su capacidad de incidir en la vida
+        pública.
+      </p>
+      <div class="cluster cluster--center">
+        <a class="button button--primary" href={`${base}participa/`}>Participa</a>
+        <a class="button button--ghost" href={`${base}quienes-somos/`}>Misión y visión</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .etapas {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 24px;
+    counter-reset: etapa;
+    position: relative;
+  }
+  .etapa {
+    position: relative;
+    background: var(--blanco);
+    border-radius: var(--radio-g);
+    padding: 32px 28px 28px;
+    box-shadow: var(--sombra);
+    border-bottom: 6px solid var(--tono);
+    transition: transform 0.25s ease;
+  }
+  .etapa:hover {
+    transform: translateY(-6px);
+  }
+  .etapa h3 {
+    color: var(--tono-texto);
+  }
+  .etapa p {
+    margin: 0;
+  }
+  .etapa__n {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--tono);
+    color: #fff;
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+    box-shadow: 0 0 0 8px var(--tono-tinte);
+  }
+  .claro {
+    color: #d5d3e6;
+  }
+  :global(.estrategia__mariposa) {
+    position: absolute;
+    right: 8vw;
+    top: 36px;
+    width: 80px;
+  }
+</style>
